@@ -22,19 +22,28 @@
 #  include <io.h>  // _isatty
 #endif
 
+
 #include "format.h"
 
 FMT_BEGIN_NAMESPACE
 namespace detail {
 
+#ifdef EMBEDDED
+extern "C" {
+ extern void fmtlib_error(const char* file, int line, const char* message);
+}
+FMT_FUNC void assert_fail(const char* file, int line, const char* message) {
+  fmtlib_error(file, line, message);
+}
+#else
 FMT_FUNC void assert_fail(const char* file, int line, const char* message) {
   // Use unchecked std::fprintf to avoid triggering another assertion when
   // writing to stderr fails
   std::fprintf(stderr, "%s:%d: assertion failed: %s", file, line, message);
   // Chosen instead of std::abort to satisfy Clang in CUDA mode during device
   // code pass.
-  std::terminate();
-}
+  std::terminate(); // FIXME mah
+#endif
 
 FMT_FUNC void throw_format_error(const char* message) {
   FMT_THROW(format_error(message));

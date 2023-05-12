@@ -102,6 +102,13 @@
 #  define FMT_NOINLINE
 #endif
 
+// https://github.com/fmtlib/fmt/issues/3418#issuecomment-1537029005
+#define FMT_THROW(x)                                           \
+       do {                                                      \
+         fmt::detail::assert_fail(__FILE__, __LINE__, x.what()); \
+    }                                                            \
+    while (false)
+
 #ifndef FMT_THROW
 #  if FMT_EXCEPTIONS
 #    if FMT_MSC_VERSION || defined(__NVCC__)
