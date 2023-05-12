@@ -34,6 +34,7 @@
 #define FMT_FORMAT_H_
 
 #include <cmath>             // std::signbit
+#include <cstddef>           // std::byte
 #include <cstdint>           // uint32_t
 #include <cstring>           // std::memcpy
 #include <initializer_list>  // std::initializer_list
@@ -4354,6 +4355,12 @@ constexpr auto format_as(Enum e) noexcept -> underlying_t<Enum> {
   return static_cast<underlying_t<Enum>>(e);
 }
 }  // namespace enums
+
+#ifdef __cpp_lib_byte
+inline auto format_as(std::byte b) -> unsigned char {
+  return static_cast<unsigned char>(b);
+}
+#endif
 
 class bytes {
  private:

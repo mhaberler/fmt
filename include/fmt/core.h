@@ -8,7 +8,6 @@
 #ifndef FMT_CORE_H_
 #define FMT_CORE_H_
 
-#include <cstddef>  // std::byte
 #include <cstdio>   // std::FILE
 #include <cstring>  // std::strlen
 #include <iterator>
@@ -289,12 +288,6 @@ struct monostate {
 #  define FMT_ENABLE_IF(...)
 #else
 #  define FMT_ENABLE_IF(...) fmt::enable_if_t<(__VA_ARGS__), int> = 0
-#endif
-
-#ifdef __cpp_lib_byte
-inline auto format_as(std::byte b) -> unsigned char {
-  return static_cast<unsigned char>(b);
-}
 #endif
 
 namespace detail {
