@@ -15,7 +15,6 @@
     "src/*"
     ],
     "exclude": [
-    "include/fmt/os.h",
     "src/os.cc",
     "src/fmt.cc"
     ]
