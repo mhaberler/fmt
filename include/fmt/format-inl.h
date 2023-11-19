@@ -28,7 +28,7 @@
 FMT_BEGIN_NAMESPACE
 namespace detail {
 
-#ifdef EMBEDDED
+#if defined(ARDUINO)
 extern "C" {
  extern void fmtlib_error(const char* file, int line, const char* message);
 }

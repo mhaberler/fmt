@@ -8,6 +8,14 @@
 #ifndef FMT_CORE_H_
 #define FMT_CORE_H_
 
+#if defined(ARDUINO)
+#if defined(B1)
+#undef B1
+#endif
+#if defined(F)
+#undef F
+#endif
+#endif
 #include <cstddef>  // std::byte
 #include <cstdio>   // std::FILE
 #include <cstring>  // std::strlen
